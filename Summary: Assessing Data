@@ -1,0 +1,16 @@
+Congratulations! That's it for the second step of data wrangling: assessing data. You assessed data, both visually and programmatically, and identified data quality and tidiness issues. The issues you identified were:
+
+Nondescriptive column headers
+-Missing values (i.e. NaNs)
+-Inconsistent representations of values, specifically "As soon as possible" and other similar values to "ASAP" in the StartDate column for this dataset
+-A messy (i.e. untidy) dataset
+There are more issues that we didn’t assess—this dataset is fairly dirty and messy—so we can’t fix everything right now. That’s okay for the purpose of this walkthrough. You've developed an eye for spotting data quality and tidiness issues, which is applicable to every dataset you'll come across in the future.
+
+In lesson 3, you'll identify every common data quality and tidiness issue imaginable. You'll also refine your assessing skills. You'll be able to categorize data quality issues using four core data quality metrics. You'll also enhance your programmatic assessment skills using the most common programmatic assessment functions in pandas, including simple plotting techniques.
+
+Data Wrangling Walkthrough Checklist
+With our assessment notes in hand, we are ready to start cleaning, the third step in the data wrangling process.
+
+Gather ✓
+Assess ✓
+Clean
