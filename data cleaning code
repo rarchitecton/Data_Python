@@ -14,3 +14,8 @@ df.head(n=5)
 df.tail(n=5)
 df.info()
 df['Year'].value_counts()
+
+#data clean
+selective rename column names
+df_clean = df_clean.rename(columns={'oldName1': 'newName1',
+                                    'oldName2': 'newName2'})
