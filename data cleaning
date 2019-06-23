@@ -1,0 +1,16 @@
+## Gather
+import pandas as pd
+import zipfile
+
+# Extract all contents from zip file
+with zipfile.ZipFile('armenian-online-job-postings.zip', 'r') as myzip:
+    myzip.extractall()
+    
+# Read CSV (comma-separated) file into DataFrame
+df = pd.read_csv('online-job-postings.csv')
+
+# data assessment
+df.head(n=5)
+df.tail(n=5)
+df.info()
+df['Year'].value_counts()
