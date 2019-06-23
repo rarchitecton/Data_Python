@@ -1,0 +1,12 @@
+Congratulations! You just finished cleaning, which is usually the most code-heavy part of the data wrangling process. You converted your observations from the assess step into defined problems, translated these definitions to sophisticated code to fix these problems, then tested your dataset using code—even using something software engineers use, assert statements—to make sure the operations worked.
+
+You'll be cleaning lots more data in your future in data. So much of the world's data is dirty and messy.
+
+The issues you cleaned in this lesson were only a subset of the most common data quality and tidiness issues. In lesson 4, you'll clean every common data quality and tidiness issue imaginable and you'll do it using advanced pandas techniques.
+
+Data Wrangling Walkthrough Checklist
+So, we've gathered, assessed, and now cleaned our data. Are we done? Stay tuned.
+
+Gather ✓
+Assess ✓
+Clean ✓
