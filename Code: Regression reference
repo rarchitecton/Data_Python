@@ -1,0 +1,40 @@
+# Packages need to import
+  import numpy as np
+  import pandas as pd
+  import statsmodels.api as sm
+  from statsmodels.stats.outliers_influence import variance_inflation_factor
+  from sklearn.datasets import load_boston
+  from sklearn.model_selection import train_test_split
+  from sklearn.linear_model import LinearRegression
+  from sklearn.preprocessing import StandardScaler
+  from sklearn.metrics import r2_score
+  from patsy import dmatrices
+  import matplotlib.pyplot as plt
+  import seaborn as sns
+  %matplotlib inline
+  
+# Replace values in column
+  df2['Height_Index'].replace([2,1,0],[4,3.5,3],inplace=True)
+
+# Get dummies variables
+  fixtureType=pd.get_dummies(df2['ies_Index'])
+  df3=df2.join(fixtureType)
+
+# OLS linear regression
+  lm=sm.OLS(df3['ave'],df3[['intercept','Size_Index','FixtureLayout_Index','M']])
+  results=lm.fit()
+  results.summary()
+
+# Pair Plot
+  1- sns.pairplot(df3[['Size_Index','Height_Index','FixtureLayout_Index','M','ave']])
+  2- pd.plotting.scatter_matrix(df, figsize=(15,15));
+
+# VIF test
+  y,X=dmatrices('ave~Size_Index+Height_Index+FixtureLayout_Index+M',df3,return_type='dataframe')
+  vif = pd.DataFrame()
+  vif["VIF Factor"] = [variance_inflation_factor(X.values, i) for i in range(X.shape[1])]
+  vif["features"] = X.columns
+  vif
+  
+# Query test
+  df3.query("Size_Index==50 & Height_Index==3 & FixtureLayout_Index==4")
