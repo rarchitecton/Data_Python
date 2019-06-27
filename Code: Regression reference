@@ -32,6 +32,12 @@
     results = lm.fit()
     results.summary()
 
+## Fitting Logistic Regression
+  df['intercept'] = 1
+  log_mod = sm.Logit(df['fraud'], df[['intercept', 'weekday', 'duration']])
+  results = log_mod.fit()
+  results.summary()
+
 ## Pair Plot
   1- sns.pairplot(df3[['Size_Index','Height_Index','FixtureLayout_Index','M','ave']])
   2- pd.plotting.scatter_matrix(df, figsize=(15,15));
