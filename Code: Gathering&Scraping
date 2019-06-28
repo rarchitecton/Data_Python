@@ -1,3 +1,9 @@
+###In Python 3, there is: 
+one text type: str, which holds Unicode data
+two byte types: bytes and bytearray
+[https://stackoverflow.com/questions/6224052/what-is-the-difference-between-a-string-and-a-byte-string]
+'The difference between UTF-8 and Unicode?[http://www.polylab.dk/utf8-vs-unicode.html]'
+
 ###Gathering data from url directly (use ebert_reviews as an example)
 import requests
 import os
@@ -66,3 +72,4 @@ pd.testing.assert_frame_equal(df, df_solution)
 7-Data Vis sample with Tableau[https://public.tableau.com/profile/david.venturi#!/vizhome/BestofRottenTomatoesCriticvs_AudienceScores/BestofRottenTomatoesCriticvs_AudienceScores]
 8-REQUESTS tutorial [https://2.python-requests.org//en/latest/user/quickstart/#binary-response-content]
 9-What does 'wb' mean in this code, using Python? [https://stackoverflow.com/questions/2665866/what-does-wb-mean-in-this-code-using-python]
+10-Unicode and Character Sets[https://www.joelonsoftware.com/2003/10/08/the-absolute-minimum-every-software-developer-absolutely-positively-must-know-about-unicode-and-character-sets-no-excuses/]
