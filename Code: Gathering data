@@ -1,4 +1,4 @@
-##Gathering data from HTML
+##Gathering data from HTML if HTML files are downloaded already
 from bs4 import BeautifulSoup
 import os
 import pandas as pd
