@@ -1,4 +1,4 @@
-###In Python 3, there is: 
+###In Python 3, there is:  
 one text type: str, which holds Unicode data
 two byte types: bytes and bytearray
 [https://stackoverflow.com/questions/6224052/what-is-the-difference-between-a-string-and-a-byte-string]
