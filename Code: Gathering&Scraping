@@ -1,10 +1,27 @@
-##Gathering data from HTML if HTML files are downloaded already
+##Gathering data from url directly (use ebert_reviews as an example)
+import requests
+import os
+# Make directory if it doesn't already exist
+folder_name = 'ebert_reviews'
+if not os.path.exists(folder_name):
+    os.makedirs(folder_name)
+for url in ebert_review_urls: # write a for loop if ebert_review is a list of urls
+    response=requests.get(url)
+    with open(os.path.join(folder_name,url.split('/')[-1]),mode='wb') as file:
+        file.write(response.content)
+#check if all files downloaded in the directory specified
+os.listdir(folder_name)
+
+##Solution test:If an AssertionError is thrown, your solution is incorrect.
+import filecmp
+dc = filecmp.dircmp('ebert_reviews', 'ebert_reviews_solution')
+assert len(dc.common) == 88
+--------------------------------------------------------------------------------
+###Gathering data from HTML if HTML files are downloaded already
 from bs4 import BeautifulSoup
 import os
 import pandas as pd
-
 ## List of dictionaries to build file by file and later convert to a DataFrame
-
 # Good practice to check if the loop works
 df_list = []
 folder = 'rt_html'
@@ -19,7 +36,6 @@ for movie_html in os.listdir(folder):
 # Full code:
 for movie_html in os.listdir(folder):
     with open(os.path.join(folder, movie_html)) as file:
-        # Your code here
         # Note: a correct implementation may take ~15 seconds to run
         soup=BeautifulSoup(file,'lxml')
         title=soup.find('title').contents[0][:-len(' - Rotten Tomatoes')]
@@ -39,8 +55,7 @@ df.reset_index(inplace = True, drop = True)
 df_solution.sort_values('title', inplace = True)
 df_solution.reset_index(inplace = True, drop = True)
 pd.testing.assert_frame_equal(df, df_solution)
-
-
+-----------------------------------------------------------------------------
 ##Links: 
 1-WordCloud for Python documentation[https://amueller.github.io/word_cloud/]
 2-Command Prompt [https://www.digitalcitizen.life/command-prompt-how-use-basic-commands]
