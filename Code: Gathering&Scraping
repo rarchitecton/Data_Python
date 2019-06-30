@@ -1,67 +1,91 @@
 ###In Python 3, there is:  
-one text type: str, which holds Unicode data
-two byte types: bytes and bytearray
-[https://stackoverflow.com/questions/6224052/what-is-the-difference-between-a-string-and-a-byte-string]
-'The difference between UTF-8 and Unicode?[http://www.polylab.dk/utf8-vs-unicode.html]'
-
+    one text type: str, which holds Unicode data
+    two byte types: bytes and bytearray
+    [https://stackoverflow.com/questions/6224052/what-is-the-difference-between-a-string-and-a-byte-string]
+    'The difference between UTF-8 and Unicode?[http://www.polylab.dk/utf8-vs-unicode.html]'
+-----------------------------------------------------------
 ###Gathering data from url directly (use ebert_reviews as an example)
-import requests
-import os
-# Make directory if it doesn't already exist
-folder_name = 'ebert_reviews'
-if not os.path.exists(folder_name):
-    os.makedirs(folder_name)
-for url in ebert_review_urls: # write a for loop if ebert_review is a list of urls
-    response=requests.get(url)
-    with open(os.path.join(folder_name,url.split('/')[-1]),mode='wb') as file:
-        file.write(response.content)
-#check if all files downloaded in the directory specified
-os.listdir(folder_name)
+    import requests
+    import os
+    # Make directory if it doesn't already exist
+    folder_name = 'ebert_reviews'
+    if not os.path.exists(folder_name):
+        os.makedirs(folder_name)
+    for url in ebert_review_urls: # write a for loop if ebert_review is a list of urls
+        response=requests.get(url)
+        with open(os.path.join(folder_name,url.split('/')[-1]),mode='wb') as file:
+            file.write(response.content)
+    #check if all files downloaded in the directory specified
+    os.listdir(folder_name)
 
 ##Solution test:If an AssertionError is thrown, your solution is incorrect.
-import filecmp
-dc = filecmp.dircmp('ebert_reviews', 'ebert_reviews_solution')
-assert len(dc.common) == 88
+    import filecmp
+    dc = filecmp.dircmp('ebert_reviews', 'ebert_reviews_solution')
+    assert len(dc.common) == 88
 --------------------------------------------------------------------------------
 ###Gathering data from HTML if HTML files are downloaded already
-from bs4 import BeautifulSoup
-import os
-import pandas as pd
-## List of dictionaries to build file by file and later convert to a DataFrame
-# Good practice to check if the loop works
-df_list = []
-folder = 'rt_html'
-for movie_html in os.listdir(folder):
-    with open(os.path.join(folder, movie_html)) as file:
-        # Your code here
-        # Note: a correct implementation may take ~15 seconds to run
-        soup=BeautifulSoup(file,'lxml')
-        title=soup.find('title').contents[0][:-len(' - Rotten Tomatoes')]
-        print(title)
-        break
-# Full code:
-for movie_html in os.listdir(folder):
-    with open(os.path.join(folder, movie_html)) as file:
-        # Note: a correct implementation may take ~15 seconds to run
-        soup=BeautifulSoup(file,'lxml')
-        title=soup.find('title').contents[0][:-len(' - Rotten Tomatoes')]
-        audience_score=soup.find('div',class_='audience-score meter').find('span').contents[0][:-1]
-        num_audience_ratings=soup.find('div',class_='audience-info hidden-xs superPageFontColor')
-        num_audience_ratings=num_audience_ratings.find_all('div')[1].contents[2].strip().replace(',','')
-        # Append to list of dictionaries
-        df_list.append({'title': title,
-                        'audience_score': int(audience_score),
-                        'number_of_audience_ratings': int(num_audience_ratings)})
-df = pd.DataFrame(df_list, columns = ['title', 'audience_score', 'number_of_audience_ratings'])
+    from bs4 import BeautifulSoup
+    import os
+    import pandas as pd
+    ## List of dictionaries to build file by file and later convert to a DataFrame
+    # Good practice to check if the loop works, Print and break strategy
+        df_list = []
+        folder = 'rt_html'
+        for movie_html in os.listdir(folder):
+            with open(os.path.join(folder, movie_html)) as file:
+                # Your code here
+                # Note: a correct implementation may take ~15 seconds to run
+                soup=BeautifulSoup(file,'lxml')
+                title=soup.find('title').contents[0][:-len(' - Rotten Tomatoes')]
+                print(title)
+                break
+    # Full code:
+        for movie_html in os.listdir(folder):
+            with open(os.path.join(folder, movie_html)) as file:
+                # Note: a correct implementation may take ~15 seconds to run
+                soup=BeautifulSoup(file,'lxml')
+                title=soup.find('title').contents[0][:-len(' - Rotten Tomatoes')]
+                audience_score=soup.find('div',class_='audience-score meter').find('span').contents[0][:-1]
+                num_audience_ratings=soup.find('div',class_='audience-info hidden-xs superPageFontColor')
+                num_audience_ratings=num_audience_ratings.find_all('div')[1].contents[2].strip().replace(',','')
+                # Append to list of dictionaries
+                df_list.append({'title': title,
+                                'audience_score': int(audience_score),
+                                'number_of_audience_ratings': int(num_audience_ratings)})
+        df = pd.DataFrame(df_list, columns = ['title', 'audience_score', 'number_of_audience_ratings'])
 
 ## Solution test
-df_solution = pd.read_pickle('df_solution.pkl')
-df.sort_values('title', inplace = True)
-df.reset_index(inplace = True, drop = True)
-df_solution.sort_values('title', inplace = True)
-df_solution.reset_index(inplace = True, drop = True)
-pd.testing.assert_frame_equal(df, df_solution)
+    df_solution = pd.read_pickle('df_solution.pkl')
+    df.sort_values('title', inplace = True)
+    df.reset_index(inplace = True, drop = True)
+    df_solution.sort_values('title', inplace = True)
+    df_solution.reset_index(inplace = True, drop = True)
+    pd.testing.assert_frame_equal(df, df_solution)
 -----------------------------------------------------------------------------
+###Read and Regroup text file in Python
+    import glob
+    import pandas as pd
+    # List of dictionaries to build file by file and later convert to a DataFrame
+    df_list = []
+    for ebert_review in glob.glob('ebert_reviews/*.txt'):
+        with open(ebert_review, encoding='utf-8') as file:
+            title = file.readline()[:-1]
+            review_url=file.readlines()[:-1]
+            review_text=file.read()
+            # Append to list of dictionaries
+            df_list.append({'title': title,
+                            'review_url': review_url,
+                            'review_text': review_text})
+    df = pd.DataFrame(df_list, columns = ['title', 'review_url', 'review_text'])
+
+## Solution test       
+    df_solution = pd.read_pickle('df_solution.pkl')
+    df.sort_values('title', inplace = True)
+    df.reset_index(inplace = True, drop = True)
+    df_solution.sort_values('title', inplace = True)
+    df_solution.reset_index(inplace = True, drop = True)
+    pd.testing.assert_frame_equal(df, df_solution)  
+----------------------------------------------------------    
 ###Links: 
 1-WordCloud for Python documentation[https://amueller.github.io/word_cloud/]
 2-Command Prompt [https://www.digitalcitizen.life/command-prompt-how-use-basic-commands]
@@ -73,3 +97,7 @@ pd.testing.assert_frame_equal(df, df_solution)
 8-REQUESTS tutorial [https://2.python-requests.org//en/latest/user/quickstart/#binary-response-content]
 9-What does 'wb' mean in this code, using Python? [https://stackoverflow.com/questions/2665866/what-does-wb-mean-in-this-code-using-python]
 10-Unicode and Character Sets[https://www.joelonsoftware.com/2003/10/08/the-absolute-minimum-every-software-developer-absolutely-positively-must-know-about-unicode-and-character-sets-no-excuses/]
+11-Build and fill pandas dataframe from for loop[https://stackoverflow.com/questions/28056171/how-to-build-and-fill-pandas-dataframe-from-for-loop/28058264#28058264]
+12-Stack Overflow: Best Practices for Opening Files in Python[https://stackoverflow.com/questions/5250744/difference-between-open-and-codecs-open-in-python/22288895#22288895]
+13-Stack Overflow: The Correct, Fully Pythonic Way to Read a File[https://stackoverflow.com/questions/8009882/how-to-read-a-large-file-line-by-line-in-python/8010133#8010133]
+14-Stack Overflow: Iterables and Iterators for file [https://stackoverflow.com/questions/16994552/is-file-object-in-python-an-iterable/16994568#16994568]
