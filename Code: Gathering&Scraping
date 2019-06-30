@@ -112,3 +112,4 @@ JSON arrays → Python lists. JSON objects → Python dictionaries.
 13-Stack Overflow: The Correct, Fully Pythonic Way to Read a File[https://stackoverflow.com/questions/8009882/how-to-read-a-large-file-line-by-line-in-python/8010133#8010133]
 14-Stack Overflow: Iterables and Iterators for file [https://stackoverflow.com/questions/16994552/is-file-object-in-python-an-iterable/16994568#16994568]
 15-API access tool wptools[https://github.com/siznax/wptools/wiki/Usage#page-usage]
+16-Mashery: API Data Exchange: XML vs. JSON [https://www.tibco.com/blog/2014/01/23/api-data-exchange-xml-vs-json/]
