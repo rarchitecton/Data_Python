@@ -100,6 +100,22 @@ Each key can represent an array(list) of values;
 Use ['key'] to get a value/array from an object, use [index#] to access a value from a array/list;
 json library in Python: [https://docs.python-guide.org/scenarios/json/]
 ---------------------------------------------------------------
+### Relational Databases and pandas
+    import pandas as pd
+    df = pd.read_csv('bestofrt_master.csv')
+    ## 1. Connect to a database
+        from sqlalchemy import create_engine
+        # Create SQLAlchemy Engine and empty bestofrt database
+        # bestofrt.db will not show up in the Jupyter Notebook dashboard yet
+        engine = create_engine('sqlite:///bestofrt.db')
+    ## 2. Store pandas DataFrame in database
+        # Store cleaned master DataFrame ('df') in a table called master in bestofrt.db
+        # bestofrt.db will be visible now in the Jupyter Notebook dashboard
+        df.to_sql('master', engine, index=False)
+    ## 3. Read database data into a pandas DataFrame
+        #Read the brand new data in that database back into a pandas DataFrame.
+        df_gather = pd.read_sql('SELECT * FROM master', engine)
+-------------------------------------------------------------------------------
 ###Links: 
 1-WordCloud for Python documentation[https://amueller.github.io/word_cloud/]
 2-Command Prompt [https://www.digitalcitizen.life/command-prompt-how-use-basic-commands]
