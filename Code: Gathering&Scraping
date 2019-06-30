@@ -96,7 +96,8 @@
 ---------------------------------------------------------
 JSON arrays → Python lists. JSON objects → Python dictionaries.
 JSON object is comprised of several key-value pairs;
-Each key can represent an array(list) of values 
+Each key can represent an array(list) of values;
+Use ['key'] to get a value/array from an object, use [index#] to access a value from a array/list;
 json library in Python: [https://docs.python-guide.org/scenarios/json/]
 ---------------------------------------------------------------
 ###Links: 
