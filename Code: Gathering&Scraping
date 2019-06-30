@@ -93,7 +93,9 @@
     page =wptools.page('E.T._the_Extra-Terrestrial').get()
     # Accessing the image attribute will return the images for this page
     page.data['image']
-    
+---------------------------------------------------------
+JSON arrays → Python lists. JSON objects → Python dictionaries.
+---------------------------------------------------------------
 ###Links: 
 1-WordCloud for Python documentation[https://amueller.github.io/word_cloud/]
 2-Command Prompt [https://www.digitalcitizen.life/command-prompt-how-use-basic-commands]
